@@ -11,6 +11,7 @@ import frc.robot.commands.AddFiveDrivetrain;
 import frc.robot.commands.TakeFiveDrivetrain;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TankDrivePlus;
+import frc.robot.commands.VisionC;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -49,6 +50,9 @@ public class RobotContainer {
 
     controller.getButton(Xbox.B)
     .onTrue(new TakeFiveDrivetrain());
+
+    controller.getButton(Xbox.X)
+    .whileTrue(new VisionC());
   }
 
   /**
