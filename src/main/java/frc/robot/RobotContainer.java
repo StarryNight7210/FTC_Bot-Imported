@@ -35,7 +35,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    drivetrain.setDefaultCommand(new TankDrivePlus(drivetrain, controller, shooter, intake));
+    //drivetrain.setDefaultCommand(new VisionC(drivetrain));
+     drivetrain.setDefaultCommand(new TankDrivePlus(drivetrain, controller, shooter, intake));
   }
 
   /**
@@ -51,8 +52,8 @@ public class RobotContainer {
     controller.getButton(Xbox.B)
     .onTrue(new TakeFiveDrivetrain());
 
-    controller.getButton(Xbox.X)
-    .whileTrue(new VisionC());
+    // controller.getButton(Xbox.X)
+    // .whileTrue(new VisionC());
   }
 
   /**

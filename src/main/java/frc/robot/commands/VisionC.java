@@ -18,15 +18,16 @@ public class VisionC extends Command {
 
   private PhotonCamera camera;
   private PhotonPipelineResult returned;
-  private double test ;
-  private Drivetrain drivetrain;
-  public VisionC() {
-    test = .5;
-    PhotonCamera camera = new PhotonCamera("photonvision");
-    returned = camera.getLatestResult(); 
-    this.drivetrain = drivetrain;
+  private double test;
+  private Drivetrain m_drivetrain;
+
+  public VisionC(Drivetrain drivetrain) {
+    this.test = .5;
+    camera = new PhotonCamera("Arducam_OV9281_USB_Camera (1)");
+    m_drivetrain = drivetrain;
 
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.
@@ -36,32 +37,28 @@ public class VisionC extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    PhotonPipelineResult returned = camera.getLatestResult(); 
+    
      if (returned.hasTargets()){
+          
           List<PhotonTrackedTarget> targets = returned.getTargets();
     
-    
           PhotonTrackedTarget target = targets.get(0);
-    
-    
-          if ( target.getArea() > test ) {
-                drivetrain.setLeftPower(-0.3);
-                drivetrain.setRightPower(-0.3);
-          }
-    
-          else if (target.getArea() < test){
-            drivetrain.setLeftPower(0.3);
-            drivetrain.setRightPower(0.3);
-    
-          }
-    
-          else{
-            System.out.println("I did a thing");
+          m_drivetrain.setLeftPower(-test);
+          m_drivetrain.setRightPower(-test);
+     }
+      else {
+        m_drivetrain.setLeftPower(0);
+        m_drivetrain.setRightPower(0);
+
+
+
+      }
+
     
             
-    
-          }
-        }
+  
+        
 
 
   }
