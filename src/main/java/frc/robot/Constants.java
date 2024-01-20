@@ -16,7 +16,7 @@ public final class Constants {
     public static double drivetrainSpeed = 1.00;
 
     public static int DRIVER_CONTROLLER_PORT = 0;
-    public static int RIGHT_FRONT = 0;
+    public static int RIGHT_FRONT = 20;
     public static int RIGHT_BACK = 3;
     public static int LEFT_FRONT = 1;
     public static int LEFT_BACK = 2;

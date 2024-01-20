@@ -35,8 +35,8 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    //drivetrain.setDefaultCommand(new VisionC(drivetrain));
-     drivetrain.setDefaultCommand(new TankDrivePlus(drivetrain, controller, shooter, intake));
+    drivetrain.setDefaultCommand(new VisionC(drivetrain));
+    //drivetrain.setDefaultCommand(new TankDrivePlus(drivetrain, controller, shooter, intake));
   }
 
   /**
