@@ -1,40 +1,162 @@
-/* 
+// this code doesn't use multable cams
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-public class Vision {
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class Vision extends SubsystemBase {
+
+  private PhotonCamera camera;
+  private PhotonPipelineResult returned;
+
+ 
+  // stole from photonvision.
+ 
+  private final double CAMERA_HEIGHT_METERS = Units.inchesToMeters(12);
+  private final double TARGET_HEIGHT_METERS = Units.feetToMeters(34);
+  private final double CAMERA_PITCH_RADIANS = Units.degreesToRadians(5);
+
+
+  public Vision(){
     
-    public Vision(){
-    PhotonCamera camera = new PhotonCamera("photonvision");
-    var returned = camera.getLatestResult();    
+    camera = new PhotonCamera("Left");
+    returned = camera.getLatestResult();
 
-    double test = .5;
-    if (returned.hasTargets()){
+
+  }
+
+  public List<PhotonTrackedTarget> getTargetsList(){
+    returned = camera.getLatestResult();
+     if (returned.hasTargets() ){
+    var targets = returned.getTargets();
+    return targets;}
+    return new ArrayList<PhotonTrackedTarget>() ;
+  
+  }
+
+  public int getTagIndex(int april) {
+    returned = camera.getLatestResult();
+    int hold = -1;
+    if (returned.hasTargets() ){
+
+      var targets = returned.getTargets();
+      for (int i = 0; i < targets.size(); i++) {
+        if (april == targets.get(i).getFiducialId()) hold = i;
+
+      }
+    return hold ;
+  }
+  return -1 ;
+}
+
+  public double getTargetsMeters(int Target){
+    returned = camera.getLatestResult();
+    if (returned.hasTargets() ){
+      // fix later
+    List<PhotonTrackedTarget> targets = returned.getTargets();
+    PhotonTrackedTarget target = targets.get(Target);
+
+    double length = Math.pow(Math.pow(PhotonUtils.calculateDistanceToTargetMeters( CAMERA_HEIGHT_METERS,
+    TARGET_HEIGHT_METERS,
+    CAMERA_PITCH_RADIANS,
+    Units.degreesToRadians(target.getPitch())), 2.0), 0.5);
+    return length;
+
+
+
+
+  }
+  return 0.0;
+}
+
+  public double getYaw(int Target){
+    returned = camera.getLatestResult();
+    if (returned.hasTargets() ){
+      //fix later
       List<PhotonTrackedTarget> targets = returned.getTargets();
+      PhotonTrackedTarget target = targets.get(Target);
+
+      return target.getYaw();
+
+    }
+    return 0.0;
+  }
+
+  public double getPitch(int Target){
+    if (returned.hasTargets() ){
+      //fix later
+      List<PhotonTrackedTarget> targets = returned.getTargets();
+      PhotonTrackedTarget target = targets.get(Target);
+
+      return target.getPitch();
+
+    }
+    return 0.0;
+  }
+
+  public double getSkew(int Target){
+    if (returned.hasTargets() ){
+      //fix later
+      List<PhotonTrackedTarget> targets = returned.getTargets();
+      PhotonTrackedTarget target = targets.get(Target);
+
+      return target.getSkew();
+
+    }
+    return 0.0;
+  }
+
+  public double getArea(int Target){
+    if (returned.hasTargets() ){
+      //fix later
+      List<PhotonTrackedTarget> targets = returned.getTargets();
+      PhotonTrackedTarget target = targets.get(Target);
+
+      return target.getArea();
+
+    }
+    return 0.0;
+  }
+  public double getAmbiguity(int Target){
+    if (returned.hasTargets() ){
+      //fix later
+      List<PhotonTrackedTarget> targets = returned.getTargets();
+      PhotonTrackedTarget target = targets.get(Target);
+
+      return target.getPoseAmbiguity();
+
+    }
+    return 0.0;
+  }
 
 
-      PhotonTrackedTarget target = targets.get(0);
+  public double getTrueCenter(int Target){
+    // you have to change for each bot
+    double true_center = (Math.asin(Units.inchesToMeters(-3.5)/getTargetsMeters(Target)));
+
+    
+    return true_center;
+  }
 
 
-      if ( target.getArea() > test ) {
-            Drivetrain.setPower(-0.1);
-      }
 
-      else if (target.getArea() < test){
-        Drivetrain.setPower(0.1);
 
-      }
+  
 
-      else{
-        System.out.println("I did a thing");
 
-        
 
-      }
+
+
+
+}
     
         
 

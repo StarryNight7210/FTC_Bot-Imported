@@ -12,9 +12,11 @@ import frc.robot.commands.TakeFiveDrivetrain;
 import frc.robot.commands.TankDrive;
 import frc.robot.commands.TankDrivePlus;
 import frc.robot.commands.VisionC;
+import frc.robot.commands.VisionC1;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Xbox;
 
 /**
@@ -30,12 +32,13 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Xbox controller = new Xbox(Constants.DRIVER_CONTROLLER_PORT);
   private final TankDrivePlus m_autoCommand = new TankDrivePlus(drivetrain, controller, shooter, intake);
+  private final Vision vision = new Vision();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    drivetrain.setDefaultCommand(new VisionC(drivetrain));
+    drivetrain.setDefaultCommand(new VisionC(drivetrain, vision ));
     //drivetrain.setDefaultCommand(new TankDrivePlus(drivetrain, controller, shooter, intake));
   }
 
