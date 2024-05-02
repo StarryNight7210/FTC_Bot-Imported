@@ -13,19 +13,15 @@ import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
-  TalonSRX l_shoot;
   TalonSRX r_shoot;
 
 
   public Shooter() {
-    this.l_shoot = new TalonSRX(Constants.LEFT_SHOOTER);
     this.r_shoot = new TalonSRX(Constants.RIGHT_SHOOTER);
-    this.l_shoot.setNeutralMode(NeutralMode.Brake);
     this.r_shoot.setNeutralMode(NeutralMode.Brake);
   }
 
   public void setPower(double power) {
-    l_shoot.set(ControlMode.PercentOutput, -power);
     r_shoot.set(ControlMode.PercentOutput, power);
   }
   

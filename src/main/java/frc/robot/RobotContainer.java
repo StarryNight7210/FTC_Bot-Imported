@@ -32,14 +32,14 @@ public class RobotContainer {
   private final Intake intake = new Intake();
   private final Xbox controller = new Xbox(Constants.DRIVER_CONTROLLER_PORT);
   private final TankDrivePlus m_autoCommand = new TankDrivePlus(drivetrain, controller, shooter, intake);
-  private final Vision vision = new Vision();
+  // private final Vision vision = new Vision();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    drivetrain.setDefaultCommand(new VisionC(drivetrain, vision ));
-    //drivetrain.setDefaultCommand(new TankDrivePlus(drivetrain, controller, shooter, intake));
+    // drivetrain.setDefaultCommand(new VisionC(drivetrain, vision ));
+    drivetrain.setDefaultCommand(new TankDrivePlus(drivetrain, controller, shooter, intake));
   }
 
   /**

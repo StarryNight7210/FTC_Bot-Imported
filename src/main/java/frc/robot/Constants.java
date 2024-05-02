@@ -20,7 +20,7 @@ public final class Constants {
     public static int RIGHT_BACK = 3;
     public static int LEFT_FRONT = 1;
     public static int LEFT_BACK = 2;
-    public static int LEFT_SHOOTER = 11;
+    // public static int LEFT_SHOOTER = 11;
     public static int RIGHT_SHOOTER = 12;
     public static int INTAKE = 10;
 }
