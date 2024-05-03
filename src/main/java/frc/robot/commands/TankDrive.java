@@ -23,13 +23,21 @@ public class TankDrive extends Command {
   @Override
   public void initialize() {}
 
+  public double deadzone(double value) {
+    if (value > 0.05) {
+      return (value - 0.05) / 0.95;
+    } else if (value < -0.05) {
+      return (value + 0.05) / 0.95;
+    } return 0.0;
+  }
+
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // drivetrain.setLeftPower((controller.getRightStickY() - controller.getRightStickX()) * 0.35);
     // drivetrain.setRightPower((controller.getRightStickY() + controller.getRightStickX()) * 0.35);
-    drivetrain.setLeftPower((controller.getLeftStickY()) * 0.5);
-    drivetrain.setRightPower((controller.getRightStickY()) * 0.5);
+    drivetrain.setLeftPower(deadzone(controller.getLeftStickY()) * 0.5);
+    drivetrain.setRightPower(deadzone(controller.getRightStickY()) * 0.5);
   }
 
   // Called once the command ends or is interrupted.
